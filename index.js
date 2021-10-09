@@ -4,12 +4,12 @@ const cors = require('cors');
 
 //establecer las variables de entorno definidas en .env
 require('dotenv').config();
-
 //Creando el servidor express 
 const app = express();
 
 app.use(cors());
 
+app.use(express.json());
 dbConection();
 // VERIFICANDO VARIABLES DE ENTORNO
 console.log(process.env);
@@ -25,9 +25,5 @@ app.listen(process.env.PORT, () => {
 
 
 //Rutas de la API 
-app.get('/', (req, res) => {
-    res.json({
-        ok: true,
-        msg: 'Bienvenidos a la App proyectos'
-    });
-});
+app.use('/api/usuarios', require('./routes/usuarios.route'));
+app.use('/api/login', require('./routes/auth.route'));
